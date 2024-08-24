@@ -19,7 +19,7 @@ interface LinksGroupProps {
   label: string;
   link?: string;
   initiallyOpened?: boolean;
-  links?: { label: string; link: string }[];
+  links?: { label: string; icon?: React.FC<any>; link: string }[];
 }
 
 export function NavLinksGroup({
@@ -36,13 +36,25 @@ export function NavLinksGroup({
   const [opened, setOpened] = useState(initiallyOpened || false);
   const ChevronIcon = dir === "ltr" ? IconChevronRight : IconChevronLeft;
   const items = (hasLinks ? links : []).map((link) => {
+    const LinkIcon = link.icon;
     return (
       <Link
         href={link.link}
         key={link.label}
-        className={`${classes.link} ${link.link === pathname && classes.activeLink}`}
+        className={`${classes.link} ${
+          link.link === pathname && classes.activeLink
+        }`}
       >
-        {link.label}
+        <Group gap={0} justify="space-between">
+          <Box style={{ display: "flex", alignItems: "center" }}>
+            {LinkIcon && (
+              <ThemeIcon variant="light" size={30}>
+                <LinkIcon size="1.1rem" />
+              </ThemeIcon>
+            )}
+            <Box ml="md">{link.label}</Box>
+          </Box>
+        </Group>
       </Link>
     );
   });
@@ -52,7 +64,9 @@ export function NavLinksGroup({
       {link ? (
         <Link
           href={link}
-          className={`${classes.control} ${link === pathname && classes.activeControl}`}
+          className={`${classes.control} ${
+            link === pathname && classes.activeControl
+          }`}
         >
           <Group gap={0} justify="space-between">
             <Box style={{ display: "flex", alignItems: "center" }}>

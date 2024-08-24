@@ -2,6 +2,8 @@ import { PageContainer } from "@/components/PageContainer/PageContainer";
 import SimpleTable  from "@/components/Table/SimpleTable";
 import clientPromise from "lib/mongodb";
 
+export const revalidate = 0; // Disable caching
+
 export default async function TablePage() {
 	const client = await clientPromise;
 	const db = client.db("model_shop");

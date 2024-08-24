@@ -11,7 +11,7 @@ import {
 	Paper,
 } from "@mantine/core";
 import { useForm, Controller } from "react-hook-form";
-import { registerItem } from "@/app/(dashboard)/dashboard/inventory/actions/register-item";
+import { registerItem } from "@/app/(dashboard)/dashboard/items/actions/register-item";
 import { notifications } from "@mantine/notifications";
 
 type FormData = {

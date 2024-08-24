@@ -3,7 +3,7 @@ import ItemRegistration from "@/components/inventory/item-registration"
 
 export default function Form() {
   return (
-    <PageContainer title="Forms">
+    <PageContainer title="Item Registration">
       <ItemRegistration />
     </PageContainer>
   );
