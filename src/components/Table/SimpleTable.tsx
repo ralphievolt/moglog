@@ -1,14 +1,14 @@
 "use client";
 
 import React from "react";
-import { Paper, Space, Title, ActionIcon, Box } from "@mantine/core";
+import { Paper, Space, Title } from "@mantine/core";
+
 import {
 	type MRT_ColumnDef,
 	MantineReactTable,
-	MRT_Cell,
+	MRT_TableOptions,
 } from "mantine-react-table";
 import dayjs from "dayjs";
-import { IconEdit, IconSend, IconTrash } from "@tabler/icons-react";
 import { ObjectId } from "mongodb";
 
 // Define the structure of an individual item
@@ -71,6 +71,10 @@ const SimpleTable: React.FC<{ items: Item[] }> = ({ items }) => {
 			{
 				accessorKey: "status",
 				header: "Status",
+				editVariant: "select",
+				mantineEditSelectProps: {
+					data:['Active', 'OBS']
+				},
 			},
 			{
 				accessorKey: "createdAt",
@@ -86,27 +90,15 @@ const SimpleTable: React.FC<{ items: Item[] }> = ({ items }) => {
 		[]
 	);
 
-	// const handleSaveCell = (cell: MRT_Cell<Item>, value: any) => {
-	// 	//@ts-ignore
-	// 	tableData[cell.row.index][cell.column.id] = value;
-	// 	setTableData([...tableData]);
-
-	// 	// console.log()
-	// };
-	const handleSaveCell = (cell: MRT_Cell<Item>, value: any) => {
-    const updatedData = [...tableData];
-    const columnId = cell.column.id as keyof Item;
-    updatedData[cell.row.index] = {
-      ...updatedData[cell.row.index],
-      [columnId]: value,
-    };
-    setTableData(updatedData);
-
-    // Get the edited row data
-    const editedRowData = updatedData[cell.row.index];
-    console.log("Edited Row Data:", editedRowData);
-    // You can use the editedRowData as needed, e.g., send it to an API or update state
-  };
+	const handleSaveRow: MRT_TableOptions<Item>["onEditingRowSave"] = async ({
+		exitEditingMode,
+		row,
+		values,
+	}) => {
+		tableData[row.index] = values;
+		setTableData([...tableData]);
+		exitEditingMode();
+	};
 
 	return (
 		<Paper withBorder radius="md" p="md">
@@ -130,13 +122,10 @@ const SimpleTable: React.FC<{ items: Item[] }> = ({ items }) => {
 					striped: true, // Make the table striped
 					highlightOnHover: true, // Optional: Highlight rows on hover
 				}}
-				editDisplayMode="cell"
 				enableEditing
-				mantineEditTextInputProps={({ cell }) => ({
-					onBlur: (event) => {
-						handleSaveCell(cell, event.target.value);
-					},
-				})}
+				enableRowActions
+				editDisplayMode="row"
+				onEditingRowSave={handleSaveRow}
 			/>
 		</Paper>
 	);
