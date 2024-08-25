@@ -24,24 +24,8 @@ export function AdminHeader({ burger }: Props) {
         placeholder="Search"
         variant="filled"
         leftSection={<IconSearch size="0.8rem" />}
-        style={{}}
+        className={classes.textInput}
       />
-      <ActionIcon onClick={open} variant="subtle">
-        <IconSettings size="1.25rem" />
-      </ActionIcon>
-
-      <Drawer
-        opened={opened}
-        onClose={close}
-        title="Settings"
-        position="right"
-        transitionProps={{ duration: 0 }}
-      >
-        <Stack gap="lg">
-          <ThemeSwitcher />
-          <DirectionSwitcher />
-        </Stack>
-      </Drawer>
     </header>
   );
 }

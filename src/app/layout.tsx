@@ -58,7 +58,7 @@ export default function RootLayout({
 						<Notifications />
 						<ModalsProvider>
 							<AppProvider>{children}</AppProvider>
-							<Analytics />
+							{/* <Analytics /> */}
 						</ModalsProvider>
 					</MantineProvider>
 				</DirectionProvider>

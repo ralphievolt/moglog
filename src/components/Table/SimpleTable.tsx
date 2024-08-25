@@ -40,6 +40,8 @@ const SimpleTable: React.FC<{ items: Item[] }> = ({ items }) => {
 				accessorKey: "itemId",
 				header: "Item Id",
 				enableEditing: false,
+				size: 75,
+
 			},
 			{
 				accessorKey: "itemName",
@@ -61,12 +63,13 @@ const SimpleTable: React.FC<{ items: Item[] }> = ({ items }) => {
 			{
 				accessorKey: "quantity",
 				header: "Qty",
-				size: 50,
+				size: 30,
 			},
 			{
 				accessorKey: "locationId",
 				header: "Location Id",
 				enableEditing: false,
+				size: 50,
 			},
 			{
 				accessorKey: "status",
@@ -75,16 +78,20 @@ const SimpleTable: React.FC<{ items: Item[] }> = ({ items }) => {
 				mantineEditSelectProps: {
 					data:['Active', 'OBS']
 				},
+				size: 50,
 			},
 			{
 				accessorKey: "createdAt",
 				header: "Created At",
 				enableEditing: false,
 				Cell: ({ cell }) => dayjs(cell.getValue<Date>()).format("YYYY-MM-DD"),
+				size: 50,
 			},
 			{
 				accessorKey: "createdBy",
 				header: "Created By",
+				enableEditing: false,
+				size: 50,
 			},
 		],
 		[]
@@ -102,8 +109,7 @@ const SimpleTable: React.FC<{ items: Item[] }> = ({ items }) => {
 
 	return (
 		<Paper withBorder radius="md" p="md">
-			<Title order={5}>Vacforms</Title>
-			<Space h="md" />
+			{/* <Title order={5}>Vacforms</Title> */}
 			<MantineReactTable
 				columns={columns}
 				data={tableData}
@@ -111,12 +117,6 @@ const SimpleTable: React.FC<{ items: Item[] }> = ({ items }) => {
 				enableDensityToggle={false} // Remove toggle density button
 				initialState={{
 					density: "xs",
-					columnVisibility: {
-						createdBy: false,
-						summary_sheet: false,
-						info1: false,
-						info2: false,
-					},
 				}}
 				mantineTableProps={{
 					striped: true, // Make the table striped

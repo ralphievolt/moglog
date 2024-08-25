@@ -4,6 +4,7 @@ import {
   AppShell,
   Burger,
   Text,
+  ActionIcon,
   useMantineColorScheme,
   useMantineTheme,
 } from "@mantine/core";
@@ -11,6 +12,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { AdminHeader } from "@/components/Headers/AdminHeader";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { navLinks } from "@/config";
+import { IconChevronLeft } from "@tabler/icons-react";
 
 interface Props {
   children: React.ReactNode;
@@ -27,31 +29,41 @@ export default function DashboardLayout({ children }: Props) {
   return (
     <AppShell
       header={{ height: 60 }}
-      navbar={{ width: 300, breakpoint: "sm", collapsed: { mobile: !opened } }}
+      navbar={{
+        width: 300,
+        breakpoint: "sm",
+        collapsed: { mobile: !opened, desktop: !opened },
+      }}
       padding="md"
       transitionDuration={500}
       transitionTimingFunction="ease"
     >
-      <AppShell.Navbar>
-        <Navbar data={navLinks} hidden={!opened} />
+      <AppShell.Navbar hidden={!opened}>
+        <Navbar data={navLinks} />
       </AppShell.Navbar>
       <AppShell.Header>
         <AdminHeader
           burger={
-            <Burger
-              opened={opened}
-              onClick={toggle}
-              hiddenFrom="sm"
-              size="sm"
-              mr="xl"
-            />
+            opened ? (
+              <ActionIcon onClick={toggle} size="lg" mr="xl" color="gray">
+                <IconChevronLeft size={20} />
+              </ActionIcon>
+            ) : (
+              <Burger
+                opened={opened}
+                onClick={toggle}
+                size="sm"
+                mr="xl"
+                color="gray"
+              />
+            )
           }
         />
       </AppShell.Header>
       <AppShell.Main bg={bg}>{children}</AppShell.Main>
       <AppShell.Footer>
-        <Text w="full" size="sm" c="gray">
-          CopyRight © 2023 Jotyy
+        <Text w="full" size="sm" c="gray" pl={20}>
+          support contact: ralphie
         </Text>
       </AppShell.Footer>
     </AppShell>
