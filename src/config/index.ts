@@ -4,27 +4,40 @@ import {
 	IconLock,
 	IconMoodSmile,
 	IconListNumbers,
-	IconPencilPlus
+	IconPencilPlus,
+	IconStack3
 } from "@tabler/icons-react";
 import type { NavItem } from "@/types/nav-item";
 
 export const navLinks: NavItem[] = [
 	// { label: "Dashboard", icon: IconDashboard, link: "/dashboard" },
 	{
-		label: "Item Inventory",
+		label: "Inventory",
 		icon: IconComponents,
 		initiallyOpened: true,
 		links: [
 			{
-				label: "List",
+				label: "Item List",
 				icon: IconListNumbers,
 				link: "/dashboard/items/list",
 			},
 			{
-				label: "Register",
+				label: "Location List",
+				icon: IconStack3,
+				link: "/dashboard/locations/list",
+			},
+			{
+				label: "Register Item",
 				icon: IconPencilPlus,
 				link: "/dashboard/items/register",
 			},
+
+			{
+				label: "Register Location",
+				icon: IconPencilPlus,
+				link: "/dashboard/locations/register",
+			},
+
 		],
 	},
 	// {

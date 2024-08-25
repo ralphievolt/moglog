@@ -1,8 +1,7 @@
 "use client";
 
 import React from "react";
-import { Paper, Space, Title } from "@mantine/core";
-
+import { Paper } from "@mantine/core";
 import {
 	type MRT_ColumnDef,
 	MantineReactTable,
@@ -14,16 +13,9 @@ import { ObjectId } from "mongodb";
 // Define the structure of an individual item
 interface Item {
 	_id: ObjectId;
-	itemId: string;
-	itemName: string;
-	itemBrand: string;
-	info1: string;
-	info2: string;
-	quantity: number;
 	locationId: string;
-	status: string;
-	createdAt: Date;
-	createdBy: string;
+	locationName: string;
+	quantity: number;
 }
 
 // Define the props for SimpleTable
@@ -31,67 +23,26 @@ interface SimpleTableProps {
 	items: Item[];
 }
 
-const SimpleTable: React.FC<{ items: Item[] }> = ({ items }) => {
+const LocationsTable: React.FC<{ items: Item[] }> = ({ items }) => {
 	const [tableData, setTableData] = React.useState<Item[]>(() => items);
 
 	const columns = React.useMemo<MRT_ColumnDef<Item>[]>(
 		() => [
 			{
-				accessorKey: "itemId",
-				header: "Item Id",
+				accessorKey: "locationId",
+				header: "Location Id",
 				enableEditing: false,
 				size: 75,
-
 			},
 			{
-				accessorKey: "itemName",
+				accessorKey: "locationName",
 				header: "Name",
 			},
-			{
-				accessorKey: "itemBrand",
-				header: "Brand",
-			},
-			{
-				accessorKey: "info1",
-				header: "Info 1",
-			},
-			{
-				accessorKey: "info2",
-				header: "Info 2",
-				size: 50,
-			},
+
 			{
 				accessorKey: "quantity",
 				header: "Qty",
 				size: 30,
-			},
-			{
-				accessorKey: "locationId",
-				header: "Location Id",
-				enableEditing: false,
-				size: 50,
-			},
-			{
-				accessorKey: "status",
-				header: "Status",
-				editVariant: "select",
-				mantineEditSelectProps: {
-					data:['Active', 'OBS']
-				},
-				size: 50,
-			},
-			{
-				accessorKey: "createdAt",
-				header: "Created At",
-				enableEditing: false,
-				Cell: ({ cell }) => dayjs(cell.getValue<Date>()).format("YYYY-MM-DD"),
-				size: 50,
-			},
-			{
-				accessorKey: "createdBy",
-				header: "Created By",
-				enableEditing: false,
-				size: 50,
 			},
 		],
 		[]
@@ -109,7 +60,6 @@ const SimpleTable: React.FC<{ items: Item[] }> = ({ items }) => {
 
 	return (
 		<Paper withBorder radius="md" p="md">
-			{/* <Title order={5}>Vacforms</Title> */}
 			<MantineReactTable
 				columns={columns}
 				data={tableData}
@@ -131,4 +81,4 @@ const SimpleTable: React.FC<{ items: Item[] }> = ({ items }) => {
 	);
 };
 
-export default SimpleTable;
+export default LocationsTable;

@@ -1,5 +1,5 @@
 import { PageContainer } from "@/components/PageContainer/PageContainer";
-import ItemsTable  from "@/components/Table/ItemsTable";
+import LocationsTable  from "@/components/Table/LocationsTable";
 import clientPromise from "lib/mongodb";
 
 export const revalidate = 0; // Disable caching
@@ -7,7 +7,7 @@ export const revalidate = 0; // Disable caching
 export default async function TablePage() {
 	const client = await clientPromise;
 	const db = client.db("model_shop");
-	const collection = db.collection("items");
+	const collection = db.collection("locations");
 
 	try {
 		const results = await collection.find().toArray();
@@ -15,8 +15,8 @@ export default async function TablePage() {
 		const data = JSON.parse(JSON.stringify(results));
 
 		return (
-			<PageContainer title="Item List">
-				<ItemsTable items={data}/>
+			<PageContainer title="Location List">
+				<LocationsTable items={data}/>
 			</PageContainer>
 		);
 	} catch (error) {

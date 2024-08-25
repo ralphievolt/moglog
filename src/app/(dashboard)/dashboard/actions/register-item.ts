@@ -7,7 +7,7 @@ interface ITEM {
 	itemName: string;
 	itemBrand: string;
 	quantity: number;
-	info1: string;
+	sku: string;
 	info2: string;
 }
 

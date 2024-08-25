@@ -11,7 +11,7 @@ import {
 	Paper,
 } from "@mantine/core";
 import { useForm, Controller } from "react-hook-form";
-import { registerItem } from "@/app/(dashboard)/dashboard/items/actions/register-item";
+import { registerItem } from "@/app/(dashboard)/dashboard/actions/register-item";
 import { notifications } from "@mantine/notifications";
 import { IconX, IconCheck } from "@tabler/icons-react";
 
@@ -20,7 +20,7 @@ type FormData = {
 	itemName: string;
 	itemBrand: string;
 	quantity: number;
-	info1: string;
+	sku: string;
 	info2: string;
 };
 
@@ -33,7 +33,6 @@ const ItemRegistration: React.FC = () => {
 
 	const onSubmit = async (data: FormData) => {
 		try {
-
 			await registerItem(data);
 
 			notifications.show({
@@ -41,6 +40,7 @@ const ItemRegistration: React.FC = () => {
 				message: "Item registered successfully",
 				color: "green",
 				position: "top-right",
+				icon: <IconCheck size={20} />,
 			});
 		} catch (error) {
 			notifications.show({
@@ -106,15 +106,15 @@ const ItemRegistration: React.FC = () => {
 					/>
 					<Space h="sm" />
 					<Controller
-						name="info1"
+						name="sku"
 						control={control}
 						defaultValue=""
 						render={({ field }) => (
 							<TextInput
-								label="Additional Information 1"
+								label="SKU"
 								placeholder="Enter additional information"
 								{...field}
-								error={errors.info1?.message}
+								error={errors.sku?.message}
 							/>
 						)}
 					/>
@@ -125,10 +125,10 @@ const ItemRegistration: React.FC = () => {
 						defaultValue=""
 						render={({ field }) => (
 							<TextInput
-								label="Additional Information 2"
+								label="Additional Information"
 								placeholder="Enter additional information"
 								{...field}
-								error={errors.info1?.message}
+								error={errors.sku?.message}
 							/>
 						)}
 					/>

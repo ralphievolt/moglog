@@ -13,6 +13,7 @@ import { AdminHeader } from "@/components/Headers/AdminHeader";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { navLinks } from "@/config";
 import { IconChevronLeft } from "@tabler/icons-react";
+import styles from './DashboardLayout.module.css'; // Import the CSS module
 
 interface Props {
   children: React.ReactNode;
@@ -30,7 +31,7 @@ export default function DashboardLayout({ children }: Props) {
     <AppShell
       header={{ height: 60 }}
       navbar={{
-        width: 300,
+        width: 250,
         breakpoint: "sm",
         collapsed: { mobile: !opened, desktop: !opened },
       }}
@@ -45,7 +46,7 @@ export default function DashboardLayout({ children }: Props) {
         <AdminHeader
           burger={
             opened ? (
-              <ActionIcon onClick={toggle} size="lg" mr="xl" color="gray">
+              <ActionIcon onClick={toggle} size="lg" mr="xl" className={styles.noHover}>
                 <IconChevronLeft size={20} />
               </ActionIcon>
             ) : (
