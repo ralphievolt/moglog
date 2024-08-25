@@ -6,23 +6,17 @@ import { HeroSection } from "@/components/Landing/HeroSection";
 import { LandingContainer } from "@/components/Landing/LandingContainer";
 
 export default function Page() {
-  return (
-    <LandingContainer>
-      <Header
-        links={[
-          {
-            link: "/",
-            label: "Home",
-          },
-          {
-            link: "/features",
-            label: "Features",
-          },
-
-        ]}
-      />
-      <HeroSection />
-
-    </LandingContainer>
-  );
+	return (
+		<LandingContainer>
+			<Header
+				links={[
+					{
+						link: "/",
+						label: "Home",
+					},
+				]}
+			/>
+			<HeroSection />
+		</LandingContainer>
+	);
 }

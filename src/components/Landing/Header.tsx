@@ -79,12 +79,12 @@ export function Header({ links }: HeaderActionProps) {
           />
           <Logo />
         </Group>
-        <Group gap="sm" className={classes.links}>
+        {/* <Group gap="sm" className={classes.links}>
           {items}
-        </Group>
-        <Button radius="xl" h={30}>
+        </Group> */}
+        {/* <Button radius="xl" h={30}>
           Try it now
-        </Button>
+        </Button> */}
 
         <Drawer opened={opened} onClose={toggle} size="md" padding="xl">
           <Stack gap="md" pt="lg">

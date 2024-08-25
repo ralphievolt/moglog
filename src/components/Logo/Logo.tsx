@@ -15,9 +15,9 @@ export const Logo: React.FC<Props> = () => {
 				style={{ textDecoration: "none" }}
 				className={classes.heading}
 			>
-				<Text fw="bolder" size="xl">
+				<Text fw="bolder" size="xl" c="emerald">
 					mog
-					<Text component="span" fw="normal" className={classes.subheading}>
+					<Text component="span" fw="normal" className={classes.subheading} c="gray">
 						log
 					</Text>
 				</Text>

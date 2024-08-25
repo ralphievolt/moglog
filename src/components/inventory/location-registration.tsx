@@ -11,9 +11,9 @@ import {
 	Paper,
 } from "@mantine/core";
 import { useForm, Controller } from "react-hook-form";
-import { registerLocation } from "@/app/(dashboard)/dashboard/actions/register-location";
-import { notifications } from "@mantine/notifications";
-import { IconX, IconCheck } from "@tabler/icons-react";
+import { registerLocation } from "@/app/(dashboard)/dashboard/locations/actions/register-location";
+import PositiveNotification from "../Notifications/positive-notification";
+import NegativeNotification from "../Notifications/negative-notification";
 
 type FormData = {
 	locationId: string;
@@ -31,22 +31,11 @@ const LocationRegistration: React.FC = () => {
 		try {
 			await registerLocation(data);
 
-			notifications.show({
-				title: "Success",
-				message: "Item registered successfully",
-				color: "green",
-				position: "top-right",
-				icon: <IconCheck size={20} />,
-			});
+			PositiveNotification("Location registered successfully");
 		} catch (error) {
-			notifications.show({
-				title: "Error",
-				message:
-					error instanceof Error ? error.message : "Failed to register item",
-				color: "red",
-				position: "top-right",
-				icon: <IconX size={20} />,
-			});
+			NegativeNotification(
+				error instanceof Error ? error.message : "Failed to register location"
+			);
 		}
 	};
 

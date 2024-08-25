@@ -10,17 +10,18 @@ import {
 import dayjs from "dayjs";
 import { ObjectId } from "mongodb";
 
+import { updateLocation } from "@/app/(dashboard)/dashboard/locations/actions/update-location";
+import PositiveNotification from "../Notifications/positive-notification";
+import NegativeNotification from "../Notifications/negative-notification";
+
 // Define the structure of an individual item
 interface Item {
 	_id: ObjectId;
 	locationId: string;
 	locationName: string;
 	quantity: number;
-}
-
-// Define the props for SimpleTable
-interface SimpleTableProps {
-	items: Item[];
+	status: string;
+	createdAt: Date;
 }
 
 const LocationsTable: React.FC<{ items: Item[] }> = ({ items }) => {
@@ -44,6 +45,22 @@ const LocationsTable: React.FC<{ items: Item[] }> = ({ items }) => {
 				header: "Qty",
 				size: 30,
 			},
+			{
+				accessorKey: "status",
+				header: "Status",
+				editVariant: "select",
+				mantineEditSelectProps: {
+					data: ["Active", "Deactivated"],
+				},
+				size: 30,
+			},
+			{
+        accessorKey: "createdAt",
+        header: "Created",
+        enableEditing: false,
+        Cell: ({ cell }) => dayjs(cell.getValue<Date>()).format("YYYY-MM-DD"),
+        size: 50,
+      },
 		],
 		[]
 	);
@@ -53,9 +70,19 @@ const LocationsTable: React.FC<{ items: Item[] }> = ({ items }) => {
 		row,
 		values,
 	}) => {
-		tableData[row.index] = values;
-		setTableData([...tableData]);
-		exitEditingMode();
+		try {
+			await updateLocation(values);
+
+			PositiveNotification("Location updated successfully");
+			tableData[row.index] = values;
+			setTableData([...tableData]);
+			exitEditingMode();
+		} catch (error) {
+			NegativeNotification(
+				error instanceof Error ? error.message : "Failed to update location"
+			);
+			exitEditingMode();
+		}
 	};
 
 	return (

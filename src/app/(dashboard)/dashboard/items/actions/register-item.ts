@@ -8,7 +8,7 @@ interface ITEM {
 	itemBrand: string;
 	quantity: number;
 	sku: string;
-	info2: string;
+	category: string;
 }
 
 export async function registerItem(item: ITEM): Promise<void> {

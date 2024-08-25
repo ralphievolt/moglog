@@ -1,11 +1,13 @@
 import {
 	IconComponents,
 	IconDashboard,
+	IconListNumbers,
 	IconLock,
 	IconMoodSmile,
-	IconListNumbers,
 	IconPencilPlus,
-	IconStack3
+	IconQrcode,
+	IconStack3,
+	IconTablePlus,
 } from "@tabler/icons-react";
 import type { NavItem } from "@/types/nav-item";
 
@@ -34,12 +36,18 @@ export const navLinks: NavItem[] = [
 
 			{
 				label: "Register Location",
-				icon: IconPencilPlus,
+				icon: IconTablePlus,
 				link: "/dashboard/locations/register",
 			},
 
 		],
 	},
+	{
+		label: "Scanning",
+		icon: IconQrcode,
+		link: "#",
+	},
+
 	// {
 	// 	label: "Auth",
 	// 	icon: IconLock,

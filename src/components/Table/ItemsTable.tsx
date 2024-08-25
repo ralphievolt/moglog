@@ -10,6 +10,11 @@ import {
 import dayjs from "dayjs";
 import { ObjectId } from "mongodb";
 
+import { updateItem } from "@/app/(dashboard)/dashboard/items/actions/update-item";
+import PositiveNotification from "../Notifications/positive-notification";
+import NegativeNotification from "../Notifications/negative-notification";
+
+
 // Define the structure of an individual item
 interface Item {
   _id: ObjectId;
@@ -17,12 +22,11 @@ interface Item {
   itemName: string;
   itemBrand: string;
   sku: string;
-  info2: string;
+  category: string;
   quantity: number;
   locationId: string;
   status: string;
   createdAt: Date;
-  createdBy: string;
 }
 
 // Define the props for SimpleTable
@@ -54,8 +58,8 @@ const ItemsTable: React.FC<{ items: Item[] }> = ({ items }) => {
         header: "SKU",
       },
       {
-        accessorKey: "info2",
-        header: "Info 2",
+        accessorKey: "category",
+        header: "Category",
         size: 50,
       },
       {
@@ -80,15 +84,9 @@ const ItemsTable: React.FC<{ items: Item[] }> = ({ items }) => {
       },
       {
         accessorKey: "createdAt",
-        header: "Created At",
+        header: "Created",
         enableEditing: false,
         Cell: ({ cell }) => dayjs(cell.getValue<Date>()).format("YYYY-MM-DD"),
-        size: 50,
-      },
-      {
-        accessorKey: "createdBy",
-        header: "Created By",
-        enableEditing: false,
         size: 50,
       },
     ],
@@ -100,9 +98,22 @@ const ItemsTable: React.FC<{ items: Item[] }> = ({ items }) => {
     row,
     values,
   }) => {
-    tableData[row.index] = values;
-    setTableData([...tableData]);
-    exitEditingMode();
+
+		try {
+
+			console.log(values)
+			await updateItem(values);
+
+			PositiveNotification("Item updated successfully");
+			tableData[row.index] = values;
+			setTableData([...tableData]);
+			exitEditingMode();
+		} catch (error) {
+			NegativeNotification(
+				error instanceof Error ? error.message : "Failed to update item"
+			);
+			exitEditingMode();
+		}
   };
 
   return (
