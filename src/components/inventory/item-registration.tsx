@@ -9,6 +9,7 @@ import {
 	TextInput,
 	Title,
 	Paper,
+	Select,
 } from "@mantine/core";
 import { useForm, Controller } from "react-hook-form";
 import { registerItem } from "@/app/(dashboard)/dashboard/items/actions/register-item";
@@ -24,7 +25,16 @@ type FormData = {
 	category: string;
 };
 
-const ItemRegistration: React.FC = () => {
+type Category = {
+	_id: string;
+	name: string;
+};
+
+type ItemRegistrationProps = {
+	categories: Category[]; // Directly pass the parsed categories array
+};
+
+const ItemRegistration: React.FC<ItemRegistrationProps> = ({ categories }) => {
 	const {
 		control,
 		handleSubmit,
@@ -112,12 +122,17 @@ const ItemRegistration: React.FC = () => {
 						name="category"
 						control={control}
 						defaultValue=""
+						rules={{ required: "Category is required" }}
 						render={({ field }) => (
-							<TextInput
+							<Select
 								label="Category"
-								placeholder="Enter category"
+								placeholder="Select category"
+								data={categories.map((category) => ({
+									value: category._id,
+									label: category.name,
+								}))}
 								{...field}
-								error={errors.sku?.message}
+								error={errors.category?.message}
 							/>
 						)}
 					/>

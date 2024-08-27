@@ -32,7 +32,6 @@ const LocationsTable: React.FC<{ items: Item[] }> = ({ items }) => {
 			{
 				accessorKey: "locationId",
 				header: "Location Id",
-				enableEditing: false,
 				size: 75,
 			},
 			{

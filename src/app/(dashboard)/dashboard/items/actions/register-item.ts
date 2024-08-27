@@ -1,6 +1,7 @@
 "use server";
 
 import clientPromise from "lib/mongodb";
+import { ObjectId } from "mongodb";
 
 interface ITEM {
 	itemId: string;
@@ -8,7 +9,7 @@ interface ITEM {
 	itemBrand: string;
 	quantity: number;
 	sku: string;
-	category: string;
+	category: string; // This will be converted to ObjectId
 }
 
 export async function registerItem(item: ITEM): Promise<void> {
@@ -23,9 +24,13 @@ export async function registerItem(item: ITEM): Promise<void> {
 			throw new Error(`Item with itemId ${item.itemId} already exists.`);
 		}
 
+		// Convert category to ObjectId
+		const categoryObjectId = new ObjectId(item.category);
+
 		// Insert the new item
 		const result = await collection.insertOne({
 			...item,
+			category: categoryObjectId, // Save as ObjectId
 			locationId: "Not Assigned",
 			status: "Active",
 			createdAt: new Date(),

@@ -1,7 +1,6 @@
 "use client";
 
-import { Button, Container, Group, Text, Title, Flex } from "@mantine/core";
-import { IconArrowRight, IconStar } from "@tabler/icons-react";
+import { Button, Container, Group, Text, Flex } from "@mantine/core";
 import { useRouter } from "next/navigation";
 import classes from "./HeroSection.module.css";
 
@@ -11,22 +10,6 @@ export function HeroSection() {
 	return (
 		<Container pt="sm" size="lg">
 			<div className={classes.inner}>
-				{/* <Text
-						component="span"
-						className={classes.description}
-						style={{ fontSize: "50px", fontWeight: 700 }}
-						c="emerald"
-					>
-						mog
-					</Text>
-					<Text
-						className={classes.description}
-						style={{ fontSize: "50px", fontWeight: 700 }}
-						c="gray"
-					>
-						log
-
-					</Text> */}
 				<Flex align="center">
 					<Text
 						style={{
@@ -54,7 +37,7 @@ export function HeroSection() {
 					mt={30}
 					style={{ fontSize: 40 }}
 				>
-					asset tracking web application
+					parts tracking application
 				</Text>
 
 				<Group mt={40}>
@@ -64,7 +47,6 @@ export function HeroSection() {
 						onClick={() => {
 							router.push("/dashboard/items/list");
 						}}
-						rightSection={<IconArrowRight />}
 					>
 						Get started
 					</Button>

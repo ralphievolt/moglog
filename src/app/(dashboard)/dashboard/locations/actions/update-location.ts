@@ -21,6 +21,7 @@ export async function updateLocation(location: LOCATION): Promise<void> {
 			{ locationId: location.locationId },
 			{
 				$set: {
+					locationId:location.locationId,
 					locationName: location.locationName,
 					quantity: location.quantity,
 					status: location.status,

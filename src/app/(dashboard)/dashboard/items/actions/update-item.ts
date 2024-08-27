@@ -25,9 +25,9 @@ export async function updateItem(item: ITEM): Promise<void> {
 			{
 				$set: {
 					itemName: item.itemName,
-					itemBrand:item.itemBrand,
-					sku:item.sku,
-					category:item.category,
+					itemBrand: item.itemBrand,
+					sku: item.sku,
+					category: new ObjectId(item.category),
 					quantity: item.quantity,
 					status: item.status,
 				},
