@@ -46,9 +46,7 @@ export default function DashboardLayout({ children }: Props) {
         <AdminHeader
           burger={
             opened ? (
-              <ActionIcon onClick={toggle} size="lg" mr="xl" className={styles.noHover}>
-                <IconChevronLeft size={20} />
-              </ActionIcon>
+                <IconChevronLeft size={20} onClick={toggle}  color="gray"/>
             ) : (
               <Burger
                 opened={opened}

@@ -111,7 +111,6 @@ const ItemsTable: React.FC<ItemsTableProps> = ({ items, categories }) => {
 	}) => {
 		try {
 
-
 			await updateItem(values);
 
 			PositiveNotification("Item updated successfully");
